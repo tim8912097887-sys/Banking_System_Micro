@@ -5,7 +5,8 @@ export enum ERROR_CODE {
    FORBIDDEN = 403,
    SERVER_ERROR = 500,
    SERVER_CONFLICT = 409,
-   TOO_MANY_REQUEST = 429
+   TOO_MANY_REQUEST = 429,
+   SERVER_UNAVAILABLE = 503
 }
 
 export enum ERROR_TYPE {
@@ -15,7 +16,8 @@ export enum ERROR_TYPE {
    FORBIDDEN = 'Forbidden',
    SERVER_ERROR = 'ServerError',
    SERVER_CONFLICT = 'ServerConflict',
-   TOO_MANY_REQUEST = 'TooManyRequest'
+   TOO_MANY_REQUEST = 'TooManyRequest',
+   SERVER_UNAVAILABLE = 'ServerUnavailable'
 }
 
 export class ApiError extends Error {

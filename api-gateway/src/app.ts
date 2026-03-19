@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cors from "cors";
 import { errorHandler } from '@middlewares/errorHandler.js';
 import { notFoundHandler } from '@middlewares/notFoundHandler.js';
+import { proxyService } from './configs/services.js';
 
 export const initializeApp = () => {
 
@@ -18,7 +19,8 @@ export const initializeApp = () => {
   app.get('/health', (_req, res) => {
     res.send('OK');
   });
-  
+  // Mount proxy middleware
+  proxyService(app);
   // Error Handler
   app.use(errorHandler);
   app.use(notFoundHandler);

@@ -1,5 +1,5 @@
 import winston, { format,transports } from "winston";
-import { env } from "./env";
+import { env } from "./env.js";
 
 const { combine,timestamp,errors,printf } = format;
 

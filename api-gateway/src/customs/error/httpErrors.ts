@@ -45,3 +45,9 @@ export class UnauthorizedError extends ApiError {
     super(ERROR_CODE.UNAUTHORIZED, ERROR_TYPE.UNAUTHORIZED, message, true);
   }
 }
+
+export class ServerUnavailableError extends ApiError {
+  constructor(message: string) {
+    super(ERROR_CODE.SERVER_UNAVAILABLE, ERROR_TYPE.SERVER_UNAVAILABLE, message, true);
+  }
+}
