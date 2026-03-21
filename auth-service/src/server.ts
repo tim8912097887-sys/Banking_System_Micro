@@ -4,6 +4,7 @@ import { env } from "@configs/env.js";
 import { logger } from "@configs/logger.js";
 import { RedisClient } from "./configs/redis.js";
 import { DatabaseServer } from "./db/db.js";
+import { connectKafka, disconnectKafka } from "./events/kafka.js";
 
 
 class AppServer {
@@ -12,7 +13,7 @@ class AppServer {
   private server?: Server;
   // Prevent multiple shutdown process
   private isShutdown = false;
-  private timeout = 1000;
+  private timeout = 10000;
   // Private constructor prevents direct "new AppServer()" calls
   private constructor() {
      this.setupProcessHandlers();
@@ -29,6 +30,7 @@ class AppServer {
   public async start(): Promise<void> {
     
     try {
+       await connectKafka();
        const app = initializeApp();
        this.server = app.listen(env.PORT,() => {
            logger.info(`Server initialization: Server start on port ${env.PORT}`);
@@ -72,6 +74,10 @@ class AppServer {
         });
         logger.info("HTTP server closed.");
       }
+      // Kafka shutdown
+      logger.info("Closing Kafka server...");
+      await disconnectKafka();
+      logger.info("Kafka server closed.");
       // Redis shutdown
       logger.info("Closing Redis server...");
       await RedisClient.closeConnection();

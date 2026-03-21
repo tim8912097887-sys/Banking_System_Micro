@@ -23,6 +23,20 @@ const EnvSchema = z.object({
               .regex(/^redis:\/\//,"Redis must start with redis://"),
   DATABASE_URL: z.string("Database url must be string")
                 .regex(/^postgresql:\/\//,"Postgres must start with postgresql://"),
+  TOKEN_SECRET: z.string("Token secret must be string").length(32,"Token secret must have exact 32 characters"),
+  TOKEN_EXPIRED: z.coerce
+    .number({
+      error: "Token expired must be a number",
+    })
+    .int()
+    .positive("Token expired must be a positive integer"),
+  SALT: z.coerce.number({
+      error: "Salt must be a number",
+    })
+    .int()
+    .positive("Salt must be a positive integer")
+    .default(10),
+  KAFKA_BROKER: z.string("Kafka broker must be string")
 })
 
 const result = EnvSchema.safeParse(process.env);

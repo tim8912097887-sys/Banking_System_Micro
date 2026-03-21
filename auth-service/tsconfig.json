@@ -9,7 +9,9 @@
             "@configs/*": ["src/configs/*"],
             "@customs/*": ["src/customs/*"],
             "@middlewares/*": ["src/middlewares/*"],
-            "@db/*": ["src/db/*"]
+            "@db/*": ["src/db/*"],
+            "@auth/*": ["src/auth/*"],
+            "@constants/*": ["src/constants/*"]
         },
         // File Location
         "rootDir": "src",
