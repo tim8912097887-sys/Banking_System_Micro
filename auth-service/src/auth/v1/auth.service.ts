@@ -56,7 +56,7 @@ export default class AuthService {
         
         const key = `blacklist:${jti}`;
         const leftTime = expiredAt-Math.floor(Date.now()/1000);
-        const result = await this.redisClient.set(key,1,"EX",leftTime);
-        return result;
+        if(leftTime > 0) await this.redisClient.set(key,1,"EX",leftTime);
+        return; 
     }
 }

@@ -1,4 +1,4 @@
-import { env } from "@/configs/env.js";
+import { env } from "@configs/env.js";
 import { ERROR_CODE, ERROR_TYPE } from "@customs/error/api.js";
 
 type State = "success" | "error" | "redirect"

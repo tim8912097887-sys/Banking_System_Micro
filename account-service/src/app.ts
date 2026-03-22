@@ -3,14 +3,15 @@ import morgan from 'morgan';
 import cors from "cors";
 import { errorHandler } from '@middlewares/errorHandler.js';
 import { notFoundHandler } from '@middlewares/notFoundHandler.js';
-import { proxyService } from './configs/services.js';
+import { accountRouter } from './account/v1/account.route.js';
 
 export const initializeApp = () => {
 
   const app = express();
   // Config cors
   app.use(cors())
- 
+  // Body parser middleware
+  app.use(express.json());
   // HTTP request logger middleware
   app.use(morgan(':method :url :status :res[content-length] - :response-time ms')); // Log to console
   
@@ -18,8 +19,8 @@ export const initializeApp = () => {
   app.get('/health', (_req, res) => {
     res.send('OK');
   });
-  // Mount proxy middleware
-  proxyService(app);
+  // V1 routes
+  app.use("/api/v1/accounts",accountRouter);
   // Error Handler
   app.use(errorHandler);
   app.use(notFoundHandler);
