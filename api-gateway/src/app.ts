@@ -16,7 +16,7 @@ export const initializeApp = () => {
   
   // Healthy check endpoint
   app.get('/health', (_req, res) => {
-    res.send('OK');
+    res.send('OKsodfjo');
   });
   // Mount proxy middleware
   proxyService(app);

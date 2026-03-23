@@ -21,12 +21,6 @@ class ServiceProxy {
             name: "auth-service",
             pathRewrite: { "^/": "/api/v1/auth/" },
             url: env.AUTH_SERVICE_URL 
-        },
-        {
-            path: "/api/v1/transactions/",
-            name: "transaction-service",
-            pathRewrite: { "^/": "/api/v1/transactions/" },
-            url: env.TRANSACTION_SERVICE_URL
         }
     ]
 

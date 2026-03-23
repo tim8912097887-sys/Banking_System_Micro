@@ -20,7 +20,6 @@ const EnvSchema = z.object({
   SERVICE_NAME: z.string("Service name must be string"),
   LOG_LEVEL: z.enum(['error','warn','info','debug'],{ error: "Log level must be 'error','warn','info','debug'" }),
   ACCOUNTS_SERVICE_URL: z.string().regex(/^http:/,"Account Url must start with http"),
-  TRANSACTION_SERVICE_URL: z.string().regex(/^http:/,"Transaction Url must start with http"),
   AUTH_SERVICE_URL: z.string().regex(/^http:/,"Auth Url must start with http"),
   DEFAULT_TIMEOUT: z.coerce.number({
       error: "Timeout must be a number",
