@@ -7,6 +7,9 @@
   "scripts": {
     "dev": "tsx watch --env-file=.env.dev src/server.ts",
     "build": "tsc && tsc-alias",
+    "test:watch": "cross-env --env-file=.env.test node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test": "cross-env --env-file=.env.test node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:coverage": "cross-env --env-file=.env.test node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate"
   },
@@ -30,13 +33,18 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@jest/globals": "^30.3.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
     "@types/node": "^25.5.0",
     "@types/pg": "^8.20.0",
+    "cross-env": "^10.1.0",
     "drizzle-kit": "^0.31.10",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.6",
     "tsc-alias": "^1.8.16",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"

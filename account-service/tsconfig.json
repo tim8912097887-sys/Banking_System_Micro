@@ -14,7 +14,7 @@
             "@constants/*": ["src/constants/*"]
         },
         // File Location
-        "rootDir": "src",
+        "rootDir": ".",
         "outDir": "dist",
         // Emit Options
         "sourceMap": true,              // Generate source maps
@@ -23,6 +23,6 @@
         // Performance
         "skipLibCheck": true,          // Skip type checking of declaration files
     },
-    "include": ["src/**/*.ts"],
+    "include": ["src/**/*.ts","test/**/*"],
     "exclude": ["node_modules"]
 }

@@ -3,21 +3,25 @@ import { CreateAccountType } from "./schema/createAccount.js";
 import { generateNumber } from "@/utils/generateNumber.js";
 import { logger } from "@/configs/logger.js";
 import { NotFoundError } from "@/customs/error/httpErrors.js";
-import { publishAccountDelete } from "@/events/producers/accountDelete.js";
-import { publishAccountCreate } from "@/events/producers/accountCreate.js";
 import { TransactionType } from "./schema/transaction.js";
+
+type Event = {
+   publishAccountCreate: (data: any) => Promise<void>
+   publishAccountDelete: (data: any) => Promise<void>
+}
 
 export default class AccountService {
     
 
     constructor(
-        private dbQuery: DbQuery
+        private dbQuery: DbQuery,
+        private event: Event
     ) {}
 
     async createAccount(userId: string,createInfo: CreateAccountType) {
         const accountNumber = generateNumber(createInfo.accountType);
         const createdAccount = await this.dbQuery.createAccount(userId,{ ...createInfo,accountNumber });
-        await publishAccountCreate({
+        await this.event.publishAccountCreate({
             key: userId,
             value: createdAccount
         });
@@ -43,7 +47,7 @@ export default class AccountService {
         }
 
         const deletedUser = await this.dbQuery.deleteAccount(accountNumber);
-        await publishAccountDelete({
+        await this.event.publishAccountDelete({
             key: userId,
             value: deletedUser
         })

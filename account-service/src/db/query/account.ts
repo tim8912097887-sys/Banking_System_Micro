@@ -51,7 +51,7 @@ export class DbQuery {
     }
     async deleteAccount(accountNumber: string) {
          
-        const result = await dbInstance.update(accounts)
+        const [result] = await dbInstance.update(accounts)
                         .set({
                             closedAt: new Date()
                         })
@@ -69,7 +69,7 @@ export class DbQuery {
 
     async accountTransaction(accountNumber: string,amount: number) {
          
-        const result = await dbInstance.update(accounts)
+        const [result] = await dbInstance.update(accounts)
                         .set({
                             balance: sql`${accounts.balance} + ${amount}`
                         })

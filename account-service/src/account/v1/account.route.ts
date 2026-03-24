@@ -11,12 +11,18 @@ import AccountService from "./account.service.js";
 import { DbQuery } from "@/db/query/account.js";
 import { tokenVerify } from "@/middlewares/token.js";
 import { TransactionSchema } from "./schema/transaction.js";
+import { publishAccountCreate } from "@/events/producers/accountCreate.js";
+import { publishAccountDelete } from "@/events/producers/accountDelete.js";
 
 export const accountRouter = express.Router();
 
 // Initialize instance
 const dbQuery = new DbQuery();
-const accountService = new AccountService(dbQuery);
+const event = {
+    publishAccountCreate,
+    publishAccountDelete
+}
+const accountService = new AccountService(dbQuery,event);
 const accountController = new AccountController(accountService);
 
 accountRouter.post("/",tokenVerify,schemaValidator(CreateAccountSchema),accountController.createAccount);
